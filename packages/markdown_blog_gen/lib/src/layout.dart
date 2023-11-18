@@ -1,22 +1,26 @@
 class Layout {
-  final String header = '''
+  String header(String title) => '''
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>kurogoma_blog</title>
-    <link rel="stylesheet" href="styles.css" />
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>$title</title>
 </head>
 ''';
 
-  String generateHtml(String contents) => '''
+  String generateHtml(String title, String contents) => '''
 <!DOCTYPE html>
 
 <html>
-  $header
+${header(title).indented('  ')}
   <body>
-    $contents
+${contents.indented('    ')}
   </body>
 </html>
 ''';
+}
+
+extension on String {
+  String indented(String indent) =>
+      split('\n').map((e) => '$indent$e').join('\n');
 }
