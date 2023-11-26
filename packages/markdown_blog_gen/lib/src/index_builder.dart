@@ -14,7 +14,7 @@ class IndexBuilder extends Builder {
   Future<void> build(BuildStep buildStep) async {
     final inputId = buildStep.inputId;
     final path = inputId.path;
-    if (path != 'web/index.dart.html') {
+    if (path != 'lib/index.html') {
       return;
     }
 
@@ -37,6 +37,6 @@ class IndexBuilder extends Builder {
 
   @override
   Map<String, List<String>> get buildExtensions => {
-        '.dart.html': ['.html']
+        '^lib/{{}}.html': ['web/{{}}.html']
       };
 }

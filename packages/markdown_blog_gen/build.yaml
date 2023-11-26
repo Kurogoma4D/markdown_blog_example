@@ -1,26 +1,26 @@
 builders:
-  # parse_layout:
-  #   import: 'package:markdown_blog_gen/builder.dart'
-  #   builder_factories: ['parseLayout']
-  #   build_extensions: {'.dart': ['']}
-  #   auto_apply: root_package
-  #   build_to: source
-  #   runs_before: [":markdown_blog_gen"]
-
   markdown_blog_gen:
     import: 'package:markdown_blog_gen/builder.dart'
     builder_factories: ['markdownBlogGen']
-    build_extensions: {'.md': ['.html']}
+    build_extensions: {'^lib/blog/{{}}.md': ['web/blog/{{}}.html']}
     auto_apply: root_package
     build_to: source
     runs_before: [':index_builder']
+    defaults:
+      generate_for:
+        include:
+        - lib/**
 
   index_builder:
     import: 'package:markdown_blog_gen/builder.dart'
     builder_factories: ['indexBuilder']
-    build_extensions: {'.dart.html': ['.html']}
+    build_extensions: {'^lib/{{}}.html': ['web/{{}}.html']}
     auto_apply: root_package
     build_to: source
+    defaults:
+      generate_for:
+        include:
+        - lib/**
 
 # targets:
 #   $default:

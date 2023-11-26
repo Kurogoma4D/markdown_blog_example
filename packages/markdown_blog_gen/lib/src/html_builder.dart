@@ -18,11 +18,11 @@ class HtmlBuilder extends Builder {
   Future<void> build(BuildStep buildStep) async {
     final inputId = buildStep.inputId;
     final path = inputId.path;
-    if (!path.contains('web/blog/')) {
-      return;
-    }
 
-    final outputId = inputId.changeExtension('.html');
+    final outputId = AssetId(
+      inputId.package,
+      path.replaceFirst('lib/', 'web/').replaceFirst('.md', '.html'),
+    );
 
     final content = await buildStep.readAsString(inputId);
     final titleMatch = titleRegExp.firstMatch(content);
@@ -45,6 +45,6 @@ class HtmlBuilder extends Builder {
 
   @override
   Map<String, List<String>> get buildExtensions => {
-        '.md': ['.html'],
+        '^lib/blog/{{}}.md': ['web/blog/{{}}.html'],
       };
 }
